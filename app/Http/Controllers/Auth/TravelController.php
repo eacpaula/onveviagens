@@ -14,23 +14,15 @@ class TravelController extends Controller
 {
     public function index()
     {
-        $user = \Auth::user();
+        $travels = \Viagem::where('destaque', 1);
 
-        return view('auth/edit')->with("user", $user);
+        return view('auth/travel/index')->with("travels", $travels);
     }
     
-    public function update(Request $request)
+    public function edit($id)
     {
-        $inputs = $request->all();
+        $travel = \Viagem::find($id);
 
-        $user = \Auth::user();
-        
-        $user->name = $inputs['name'];
-    
-        $user->email = $inputs['email'];
-    
-        $user->save();
-    
-        return \Redirect::route('home');
+        return view('auth/travel/edit')->with("travel", $travel);
     }
 }
